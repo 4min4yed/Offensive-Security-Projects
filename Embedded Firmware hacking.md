@@ -1,10 +1,10 @@
 # Hacking **Embedded Systems** 
 ## Summary
 - ### Learning Outcomes:
-**Decomposition**: Understanding the structural relationship between the *Firmware*, *bootloader*, *kernel* , *OS* and *Filesystem*.
-**Embedded Logic**: Identifying how custom service wrappers (like telnetd.sh) override standard Linux authentication.
-**Deeper understanding of Linux systems security**.
-**Security Assessment**: Recognizing that "Locked" accounts in `/etc/shadow` can be bypassed if the service uses a custom authentication backend.
+**Decomposition**: Understanding the structural relationship between the *Firmware*, *bootloader*, *kernel* , *OS* and *Filesystem*.\
+**Embedded Logic**: Identifying how custom service wrappers (like telnetd.sh) override standard Linux authentication.\
+**Deeper understanding of Linux systems security**.\
+**Security Assessment**: Recognizing that "Locked" accounts in `/etc/shadow` can be bypassed if the service uses a custom authentication backend.\
 
 - ### Target:
 **ARMv5** Architecture | **Linux** Kernel v4.4.50 | **OpenWrt**-based OS.
