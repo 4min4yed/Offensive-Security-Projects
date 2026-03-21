@@ -20,6 +20,8 @@ Static firmware decomposition, filesystem reversal, and logic analysis of boot s
 binwalk, firmwalk, FAT (Firmware Analysis Toolkit) and basic Linux commands.
 - ### OS Architecture:
 OpenWrt with SquashFS read-only root and JFFS2 writable overlay.
+- ### Refrences:
+[OWASP Firmware Security Testing Methodology](https://scriptingxss.gitbook.io/firmware-security-testing-methodology)
 
 ## Steps
 1. Information gathering and reconnaissance: 
