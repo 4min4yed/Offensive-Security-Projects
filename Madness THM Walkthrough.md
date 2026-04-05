@@ -1,6 +1,6 @@
 # Hacking **Madness THM**
 
-![Madness Cover](Images/cover.jpg)
+![Madness Cover](<Images/cover.jpg>)
 
 ## Summary
 
@@ -35,18 +35,18 @@ Result showed:
 - `22/tcp` OpenSSH 7.2p2
 - `80/tcp` Apache 2.4.18
 
-![Target Info](Images/Screenshot 2026-04-05 151209.png)
-![Nmap Service Scan](Images/Screenshot 2026-04-05 151237.png)
+![Target Info](<Images/Screenshot 2026-04-05 151209.png>)
+![Nmap Service Scan](<Images/Screenshot 2026-04-05 151237.png>)
 
 2. Initial web access
 
 Browsing port 80 showed the default Apache page.
 
-![Apache Default Page](Images/Screenshot 2026-04-05 151257.png)
+![Apache Default Page](<Images/Screenshot 2026-04-05 151257.png>)
 
 Noticed a broken image reference (`thm.jpg`) on that page.
 
-![Broken Image Hint](Images/Screenshot 2026-04-05 151321.png)
+![Broken Image Hint](<Images/Screenshot 2026-04-05 151321.png>)
 
 3. Web enumeration
 
@@ -56,7 +56,7 @@ gobuster dir -w /usr/share/wordlists/first.txt -u http://<TARGET_IP>:80
 
 Discovered `index.php` as a useful path.
 
-![Gobuster Results](Images/Screenshot 2026-04-05 151311.png)
+![Gobuster Results](<Images/Screenshot 2026-04-05 151311.png>)
 
 4. Pull and inspect hidden image file
 
@@ -68,10 +68,10 @@ file thm.jpg
 
 The file had mismatched magic bytes (PNG header on JPEG-like body), so I inspected with hex.
 
-![Download thm.jpg](Images/Screenshot 2026-04-05 151356.png)
-![Header Check via head](Images/Screenshot 2026-04-05 151407.png)
-![Hexedit Open](Images/Screenshot 2026-04-05 151851.png)
-![Wrong Header Bytes](Images/Screenshot 2026-04-05 151955.png)
+![Download thm.jpg](<Images/Screenshot 2026-04-05 151356.png>)
+![Header Check via head](<Images/Screenshot 2026-04-05 151407.png>)
+![Hexedit Open](<Images/Screenshot 2026-04-05 151851.png>)
+![Wrong Header Bytes](<Images/Screenshot 2026-04-05 151955.png>)
 
 5. Repair file signature and validate
 
@@ -85,8 +85,8 @@ file thm.jpg
 
 Now it was recognized as valid JPEG image data.
 
-![Fixed Header Bytes](Images/Screenshot 2026-04-05 151916.png)
-![File Type Confirmed](Images/Screenshot 2026-04-05 151859.png)
+![Fixed Header Bytes](<Images/Screenshot 2026-04-05 151916.png>)
+![File Type Confirmed](<Images/Screenshot 2026-04-05 151859.png>)
 
 6. Secret path and secret value logic
 
@@ -101,12 +101,12 @@ for i in {1..99}; do curl "http://<TARGET_IP>/th1s_1s_h1dd3n/index.php?secret=$i
 Correct secret was `73`, returning encoded string:
 - `y2RPJ4QaPF!B`
 
-![Hidden Directory Clue](Images/Screenshot 2026-04-05 152313.png)
-![Hidden Dir Page](Images/Screenshot 2026-04-05 152327.png)
-![Secret Parameter Test](Images/Screenshot 2026-04-05 152339.png)
-![Secret Found 73](Images/Screenshot 2026-04-05 152347.png)
-![Secret Brute Script](Images/Screenshot 2026-04-05 151548.png)
-![Secret Response Output](Images/Screenshot 2026-04-05 151619.png)
+![Hidden Directory Clue](<Images/Screenshot 2026-04-05 152313.png>)
+![Hidden Dir Page](<Images/Screenshot 2026-04-05 152327.png>)
+![Secret Parameter Test](<Images/Screenshot 2026-04-05 152339.png>)
+![Secret Found 73](<Images/Screenshot 2026-04-05 152347.png>)
+![Secret Brute Script](<Images/Screenshot 2026-04-05 151548.png>)
+![Secret Response Output](<Images/Screenshot 2026-04-05 151619.png>)
 
 7. Stego extraction and credential decoding
 
@@ -130,10 +130,10 @@ cat password.txt
 Recovered SSH password:
 - `*axA&GF8dP`
 
-![Steghide username extract](Images/Screenshot 2026-04-05 151641.png)
-![Hidden txt content](Images/Screenshot 2026-04-05 152122.png)
-![ROT13 Decode to joker](Images/Screenshot 2026-04-05 151653.png)
-![Steghide password extract](Images/Screenshot 2026-04-05 173708.png)
+![Steghide username extract](<Images/Screenshot 2026-04-05 151641.png>)
+![Hidden txt content](<Images/Screenshot 2026-04-05 152122.png>)
+![ROT13 Decode to joker](<Images/Screenshot 2026-04-05 151653.png>)
+![Steghide password extract](<Images/Screenshot 2026-04-05 173708.png>)
 
 8. Foothold (SSH)
 
@@ -143,8 +143,8 @@ ssh joker@<TARGET_IP>
 
 Logged in successfully and grabbed `user.txt`.
 
-![SSH Access as joker](Images/Screenshot 2026-04-05 173906.png)
-![User Flag](Images/Screenshot 2026-04-05 173929.png)
+![SSH Access as joker](<Images/Screenshot 2026-04-05 173906.png>)
+![User Flag](<Images/Screenshot 2026-04-05 173929.png>)
 
 9. Local privilege escalation (`screen-4.5.0` SUID)
 
@@ -154,7 +154,7 @@ I checked SUID binaries and found vulnerable `screen-4.5.0` / `screen-4.5.0.old`
 find / -perm -u=s -type f 2>/dev/null
 ```
 
-![SUID Enumeration](Images/Screenshot 2026-04-05 184617.png)
+![SUID Enumeration](<Images/Screenshot 2026-04-05 184617.png>)
 
 ### Exploit transfer and setup
 
@@ -224,16 +224,16 @@ cd /etc
 
 Then verify root and read root flag.
 
-![Exploit Artifacts in /tmp](Images/Screenshot 2026-04-05 184823.png)
-![Triggering screen exploit](Images/Screenshot 2026-04-05 184851.png)
-![Root shell check](Images/Screenshot 2026-04-05 184857.png)
-![Root Flag](Images/Screenshot 2026-04-05 184908.png)
+![Exploit Artifacts in /tmp](<Images/Screenshot 2026-04-05 184823.png>)
+![Triggering screen exploit](<Images/Screenshot 2026-04-05 184851.png>)
+![Root shell check](<Images/Screenshot 2026-04-05 184857.png>)
+![Root Flag](<Images/Screenshot 2026-04-05 184908.png>)
 
 10. Completion
 
 Room complete.
 
-![Madness Completed](Images/Screenshot 2026-04-05 183747.png)
+![Madness Completed](<Images/Screenshot 2026-04-05 183747.png>)
 
 ## Conclusion
 
@@ -241,3 +241,4 @@ Room complete.
 Whenever you see a binary with the SUID bit, you should immediately ask: "What does this program allow a user to control?"\
 Look for ways to influence how a process loads its dependencies. If you can write to a library path or a linker config file.\
 The Dynamic Linker (ld.so) decides which libraries a program needs to run. By manipulating files like /etc/ld.so.preload or environment variables like LD_PRELOAD, you can force the system to run your code inside its process \
+
