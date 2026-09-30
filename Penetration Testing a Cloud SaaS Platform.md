@@ -106,5 +106,3 @@ Proxmox, Kali Linux, Nmap, curl, Burp Suite, Microsoft Restler, Gobuster, sqlmap
 
 ---
 
-*Document prepared by: [Your Name]*
-
